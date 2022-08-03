@@ -1,0 +1,44 @@
+using Azure;
+using Azure.DigitalTwins.Core;
+using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
+
+namespace opendigitaltwins.building.digitaltwins.rec_3_3.device
+{
+
+    public class DryBulbTemperatureSensor : TemperatureSensor, IEquatable<DryBulbTemperatureSensor>
+    {
+        public DryBulbTemperatureSensor()
+        {
+            Metadata.ModelId = ModelId;
+        }
+        [JsonIgnore]
+        public static new string ModelId { get; } = "dtmi:digitaltwins:rec_3_3:device:DryBulbTemperatureSensor;1";
+        public override bool Equals(object? obj)
+        {
+            return Equals(obj as DryBulbTemperatureSensor);
+        }
+
+        public bool Equals(DryBulbTemperatureSensor? other)
+        {
+            return other is not null && base.Equals(other);
+        }
+
+        public static bool operator ==(DryBulbTemperatureSensor? left, DryBulbTemperatureSensor? right)
+        {
+            return EqualityComparer<DryBulbTemperatureSensor?>.Default.Equals(left, right);
+        }
+
+        public static bool operator !=(DryBulbTemperatureSensor? left, DryBulbTemperatureSensor? right)
+        {
+            return !(left == right);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.CustomHash(base.GetHashCode());
+        }
+    }
+}
